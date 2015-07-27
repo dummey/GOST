@@ -26,36 +26,24 @@ module Main
       url.path.split('/')[1] == attrs.href.split('/')[1]
     end
 
-    def add_todo
-      _todos << { name: page._new_todo }
-      page._new_todo = ''
-    end
-
-    def current_todo
-      _todos[(params._index || 0).to_i]
-    end
-
     def front_chainring
       return unless page._front_chainring
-      #page._fc_arrays = 
       page._front_chainring.split(/\s*,\s*/)
     end
 
     def rear_cassette
       return unless page._rear_cassette
-      # page._rc_arrays = 
       page._rear_cassette.split(/\s*,\s*/)
     end
 
     def gear_calc
-      p "in gear calc"
-      # return unless page._fc_arrays && page._rc_arrays
-      wheel_size = page._wheel_size.to_i || 26.3
+      return [] unless front_chainring && rear_cassette
+
+      wheel_size = page._wheel_size ? page._wheel_size.to_i : 26.3
       low_cadence = page._low_cadence ? page._low_cadence.to_i : 70
       top_cadence = page._top_cadence ? page._top_cadence.to_i : 110
       mid_cadence = (low_cadence + top_cadence) / 2
       converstion = 336
-      gear_ratios = []
 
       gear_ratios = front_chainring.map {|f| rear_cassette.map{|r| [f,r]}}
       gear_ratios = gear_ratios.to_a.flatten(1)
@@ -66,7 +54,58 @@ module Main
         gears << (gears[0].to_i / gears[1].to_i * wheel_size * top_cadence / converstion).round(2)
       }
 
+
+      gear_chart = gear_ratios.to_a
+      gear_chart = gear_chart.map do |e| 
+        name = "#{e[0]}x#{e[1]}"
+        delta = e[4] - e[2]
+        mid = e[3]
+        optimal = [mid - delta/4, mid + delta/4]
+        [name, e[2], *optimal, e[4]]
+      end
+      p gear_chart.to_s
+
+
+      if RUBY_PLATFORM == 'opal'
+        # run some JS code
+        unless @charted
+          @charted = true
+          `
+          google.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable(
+                #{gear_chart}
+                , true);
+
+              var options = {
+                legend:'none'
+              };
+
+              var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+
+              chart.draw(data, options);
+            }
+
+          `
+        else
+          `
+            var data = google.visualization.arrayToDataTable(
+              #{gear_chart}
+              , true);
+
+            var options = {
+              legend:'none'
+            };
+
+            var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+          `
+        end
+      end
+
       gear_ratios
     end
+
   end
 end

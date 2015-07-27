@@ -25,6 +25,7 @@
           <select class="form-control" value="{{ page._rear_cassette }}">
             <optgroup label="Road - 10 Speed">
               <option value="11,12,13,14,15,16,17,19,21,23"> 11-23 SRAM </option>
+              <option value="11,12,13,14,15,17,19,22,25,28"> 11-28 SRAM </option>
             </optgroup>
             <optgroup label="Road - 11 Speed">
               <option value="11,12,13,14,15,16,17,18,19,21,23"> 11-23 SRAM </option>
@@ -78,29 +79,35 @@
 
     <div class="col-md-8">
       <div>
-        Front Chainring: {{ front_chainring || "na" }}
+        Front Chainring: {{ front_chainring }}
       </div>
       <div>
-        Rear Cassete: {{ rear_cassette || "na" }}
+        Rear Cassete: {{ rear_cassette }}
       </div>
+
+      <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
       <div class="computed-stuff">
         Gear Rations: 
-        <table style="border:1px">
-          <tr>
-            <td> Front </td>
-            <td> Rear </td>
-            <td> Low Speed </td>
-            <td> Mid Speed </td>
-            <td> Top Speed </td>
-          </tr>
-          {{ gear_calc.each do |pair| }}
+        <table style="border:1px" class="data_tables">
+          <thead>
             <tr>
-            {{ pair.each do |teeth| }}
-              <td>{{ teeth }}</td>
-            {{ end }}
+              <td> Front </td>
+              <td> Rear </td>
+              <td> Low Speed </td>
+              <td> Mid Speed </td>
+              <td> Top Speed </td>
             </tr>
-          {{ end }}
+          </thead>
+          <tbody>
+            {{ gear_calc.each do |pair| }}
+              <tr>
+              {{ pair.each do |teeth| }}
+                <td>{{ teeth }}</td>
+              {{ end }}
+              </tr>
+            {{ end }}
+          </tbody>
         </table>
       </div>
 
