@@ -1,0 +1,108 @@
+<:Title>
+  Gear Calc
+
+<:Body>
+  <div class="row">
+    <div class="col-md-4">
+      <form e-submit="gear_calc" role="form">
+        <input style='width:0; visibility:hidden' type='submit'>
+        <div class="form-group">
+          <label>Front Chainring</label>
+          <input class="form-control" type="text" value="{{ page._front_chainring }}" />
+          <select class="form-control" value="{{ page._front_chainring }}">
+            <optgroup label="Road">
+              <option value="34, 50"> 34/50, Road Compact </option>
+              <option value="39, 52"> 39/52, Road Standard </option> 
+            </optgroup>
+            <optgroup label="CX">
+              <option value="46"> 46, Road Compact </option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Rear Cassette</label>
+          <input class="form-control" type="text" value="{{ page._rear_cassette }}" />
+          <select class="form-control" value="{{ page._rear_cassette }}">
+            <optgroup label="Road - 10 Speed">
+              <option value="11,12,13,14,15,16,17,19,21,23"> 11-23 SRAM </option>
+            </optgroup>
+            <optgroup label="Road - 11 Speed">
+              <option value="11,12,13,14,15,16,17,18,19,21,23"> 11-23 SRAM </option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Wheel Size</label>
+          <input class="form-control" type="text" value="{{ page._wheel_size }}" />
+          <select class="form-control" value="{{ page._wheel_size }}">
+            <optgroup label="Road">
+              <option value="26.3"> 700c </option>
+            </optgroup>
+            <optgroup label="Mountain">
+              <option value="26.4"> 26" </option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tire Size</label>
+          <input class="form-control" type="text" value="{{ page._tire_size }}" />
+          <select class="form-control" value="{{ page._tire_size }}">
+            <optgroup label="Road">
+              <option value="28"> 28mm </option>
+            </optgroup>
+            <optgroup label="Mountain">
+              <option value="26.4"> 26" </option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Cadence</label>
+          <div class="col-md-12">
+            <div class="form-group row">
+              <div class="col-md-5">
+                <input class="form-control" type="text" value="{{ page._low_cadence }}" />
+                <input type="range" name="points" min="0" max="200" value="{{ page._low_cadence }}">
+              </div>
+              <div class="col-md-1">
+               -
+              </div>
+              <div class="col-md-5">
+                <input class="form-control" type="text" value="{{ page._top_cadence }}" />
+                <input type="range" name="points" min="0" max="200" value="{{ page._top_cadence }}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-8">
+      <div>
+        Front Chainring: {{ front_chainring || "na" }}
+      </div>
+      <div>
+        Rear Cassete: {{ rear_cassette || "na" }}
+      </div>
+
+      <div class="computed-stuff">
+        Gear Rations: 
+        <table style="border:1px">
+          <tr>
+            <td> Front </td>
+            <td> Rear </td>
+            <td> Low Speed </td>
+            <td> Mid Speed </td>
+            <td> Top Speed </td>
+          </tr>
+          {{ gear_calc.each do |pair| }}
+            <tr>
+            {{ pair.each do |teeth| }}
+              <td>{{ teeth }}</td>
+            {{ end }}
+            </tr>
+          {{ end }}
+        </table>
+      </div>
+
+    </div>
+  </div>

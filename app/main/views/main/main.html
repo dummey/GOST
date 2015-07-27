@@ -7,6 +7,7 @@
       <ul class="nav nav-pills pull-right">
         <:nav href="/">Home</:nav>
         <:nav href="/todos">Todos</:nav>
+        <:nav href="/gear_calc">Gear Calc</:nav>
         <:nav href="/about">About</:nav>
         <:user_templates:menu />
       </ul>
@@ -17,9 +18,9 @@
 
     {{ view main_path, 'body', {controller_group: 'main'} }}
 
-    <div>
+<!--     <div>
       {{ view 'current_time' }}
-    </div>
+    </div> -->
     
     <div class="footer">
       <p>&copy; Company {{ Time.now.year }}</p>

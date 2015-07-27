@@ -16,5 +16,9 @@ module CurrentTime
     def main_path
       "#{params._component || 'main'}/#{params._controller || 'main'}/#{params._action || 'index'}"
     end
+
+    def current_time
+      Time.now()
+    end
   end
 end
