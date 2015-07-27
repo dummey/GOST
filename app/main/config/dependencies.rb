@@ -8,8 +8,8 @@ component 'bootstrap'
 component 'bootstrap_jumbotron_theme'
 
 # provides templates for login, signup, and logout
-component 'user_templates'
+# component 'user_templates'
 
-component 'current_time'
+# component 'current_time'
 
 javascript_file "https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"
