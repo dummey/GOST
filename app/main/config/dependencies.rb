@@ -11,3 +11,5 @@ component 'bootstrap_jumbotron_theme'
 component 'user_templates'
 
 component 'current_time'
+
+javascript_file "https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"
