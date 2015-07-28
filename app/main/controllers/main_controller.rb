@@ -36,6 +36,44 @@ module Main
       page._rear_cassette.split(/\s*,\s*/)
     end
 
+    def gear_calc_ready
+      #Do google charts stuff
+      `
+        google.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable(
+              []
+              , true);
+
+            var options = {
+              legend:'none',
+              hAxis: {
+                title: 'gear ratio',
+              },
+              vAxis: {
+                title: 'mph'
+              },
+              axisTitlesPosition: 'in'
+            };
+
+            var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+          }
+
+      `
+
+      #Do Tooltip stuff
+      `
+        $('[data-toggle="tooltip"]').tooltip(); 
+      `
+
+      #Do datatables stuff
+      `
+        $('#gear-chart').addClass('table table-striped table-bordered table-condensed');
+      `
+    end
+
     def gear_calc
       return [] unless front_chainring && rear_cassette
 
@@ -63,57 +101,29 @@ module Main
         optimal = [mid - delta/4, mid + delta/4]
         [name, e[2], *optimal, e[4]]
       end
-      p gear_chart.to_s
+      # p gear_chart.to_s
 
 
       if RUBY_PLATFORM == 'opal'
-        # run some JS code
-        unless @charted
-          @charted = true
-          `
-          google.setOnLoadCallback(drawChart);
-            function drawChart() {
-              var data = google.visualization.arrayToDataTable(
-                #{gear_chart}
-                , true);
+        `
+          var data = google.visualization.arrayToDataTable(
+            #{gear_chart}
+            , true);
 
-              var options = {
-                legend:'none',
-                hAxis: {
-                  title: 'gear ratio',
-                },
-                vAxis: {
-                  title: 'mph'
-                }
-              };
+          var options = {
+              legend:'none',
+              hAxis: {
+                title: 'gear ratio',
+              },
+              vAxis: {
+                title: 'mph'
+              }
+            };
 
-              var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+          var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
 
-              chart.draw(data, options);
-            }
-
-          `
-        else
-          `
-            var data = google.visualization.arrayToDataTable(
-              #{gear_chart}
-              , true);
-
-            var options = {
-                legend:'none',
-                hAxis: {
-                  title: 'gear ratio',
-                },
-                vAxis: {
-                  title: 'mph'
-                }
-              };
-
-            var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
-
-            chart.draw(data, options);
-          `
-        end
+          chart.draw(data, options);
+        `
       end
 
       gear_ratios

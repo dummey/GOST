@@ -7,9 +7,12 @@
       <form e-submit="gear_calc" role="form">
         <input style='width:0; visibility:hidden' type='submit'>
         <div class="form-group">
-          <label>Front Chainring(s)</label>
+          <label>
+            <a href="#" data-toggle="tooltip" title="TODO">Front Chainring(s)</a>
+          </label>
           <input class="form-control" type="text" value="{{ page._front_chainring }}" />
-          <select class="form-control" value="{{ page._front_chainring }}">
+          <select class="form-control" value="{{ page._front_chainring }}" placeholder="Custom">
+            <option value="" disabled selected>Select:</option>
             <optgroup label="Road">
               <option value="34, 50"> 34/50, Road Compact </option>
               <option value="39, 52"> 39/52, Road Standard </option> 
@@ -20,9 +23,12 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Rear Cassette</label>
+          <label>
+            <a href="#" data-toggle="tooltip" title="TODO">Rear Cassette</a>
+          </label>
           <input class="form-control" type="text" value="{{ page._rear_cassette }}" />
           <select class="form-control" value="{{ page._rear_cassette }}">
+            <option value="" disabled selected>Select:</option>
             <optgroup label="Road - 10 Speed">
               <option value="11,12,13,14,15,16,17,19,21,23"> 11-23 SRAM </option>
               <option value="11,12,13,14,15,17,19,22,25,28"> 11-28 SRAM </option>
@@ -33,9 +39,12 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Wheel Size</label>
+          <label>
+            <a href="#" data-toggle="tooltip" title="TODO">Wheel Size</a>
+          </label>
           <input class="form-control" type="text" value="{{ page._wheel_size }}" />
           <select class="form-control" value="{{ page._wheel_size }}">
+            <option value="" disabled selected>Select:</option>
             <optgroup label="Road">
               <option value="26.3"> 700c </option>
             </optgroup>
@@ -45,9 +54,12 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Tire Size</label>
+          <label>
+            <a href="#" data-toggle="tooltip" title="width of the tire in mm">Tire Size</a>
+          </label>
           <input class="form-control" type="text" value="{{ page._tire_size }}" />
           <select class="form-control" value="{{ page._tire_size }}">
+            <option value="" disabled selected>Select:</option>
             <optgroup label="Road">
               <option value="28"> 28mm </option>
             </optgroup>
@@ -57,23 +69,17 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Cadence</label>
-            <div class="form-group col-md-12">
-              <div class="form-group col-md-6">
-                <input class="form-control" type="text" value="{{ page._low_cadence }}" />
-                <input type="range" name="points" min="0" max="200" value="{{ page._low_cadence }}">
-              </div>
-<!--               <div class="form-group col-md-2">
-               <div class="input-group-addon">to</div>
-              </div> -->
-              <div class="form-group col-md-6">
-                <input class="form-control" type="text" value="{{ page._top_cadence }}" />
-                <input type="range" name="points" min="0" max="200" value="{{ page._top_cadence }}">
-              </div>
-<!--               <div class="form-group col-md-2">
-                <div class="input-group-addon">rpm</div>
-              </div> -->
-            </div>
+          <label>
+            <a href="#" data-toggle="tooltip" title="the number of revolutions of the crankset per minute">Cadence (rpm)</a>
+          </label>
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Min" value="{{ page._low_cadence }}" />
+            <input type="range" name="points" min="0" max="200" value="{{ page._low_cadence }}">
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Max" value="{{ page._top_cadence }}" />
+            <input type="range" name="points" min="0" max="200" value="{{ page._top_cadence }}">
+          </div>
         </div>
       </form>
     </div>
@@ -86,18 +92,18 @@
         Rear Cassete: {{ rear_cassette }}
       </div> -->
 
-      <div id="chart_div" style="width: 900px; height: 500px;" class="center-block"></div>
+      <div id="chart_div" style="width: 1024px; height: 500px;" class="center-block"></div>
 
       <div style="width: 900px" class="center-block">
-        Gear Rations: 
-        <table class="table table-striped table-bordered table-condensed">
+        <hr>
+        <table id="gear-chart" width="100%">
           <thead>
             <tr>
               <td> Front </td>
               <td> Rear </td>
-              <td> Low Speed </td>
-              <td> Mid Speed </td>
-              <td> Top Speed </td>
+              <td> Min Speed (mph) </td>
+              <td> Speed (mph) </td>
+              <td> Max Speed (mph) </td>
             </tr>
           </thead>
           <tbody>
