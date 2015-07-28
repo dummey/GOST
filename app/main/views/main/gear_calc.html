@@ -31,6 +31,8 @@
             <option value="" disabled selected>Select:</option>
             <optgroup label="Road - 10 Speed">
               <option value="11,12,13,14,15,16,17,19,21,23"> 11-23 SRAM </option>
+              <option value="11,12,13,14,15,17,19,21,23,25"> 11-25 SRAM </option>
+              <option value="11,12,13,14,15,17,19,21,23,26"> 11-26 SRAM </option>
               <option value="11,12,13,14,15,17,19,22,25,28"> 11-28 SRAM </option>
             </optgroup>
             <optgroup label="Road - 11 Speed">
@@ -46,10 +48,11 @@
           <select class="form-control" value="{{ page._wheel_size }}">
             <option value="" disabled selected>Select:</option>
             <optgroup label="Road">
-              <option value="26.3"> 700c </option>
+              <option value="622"> 700c </option>
+              <option value="584"> 650b </option>
             </optgroup>
             <optgroup label="Mountain">
-              <option value="26.4"> 26" </option>
+              <option value="559"> 26" </option>
             </optgroup>
           </select>
         </div>
@@ -61,10 +64,13 @@
           <select class="form-control" value="{{ page._tire_size }}">
             <option value="" disabled selected>Select:</option>
             <optgroup label="Road">
+              <option value="21"> 21mm </option>
+              <option value="23"> 23mm </option>
+              <option value="25"> 25mm </option>
               <option value="28"> 28mm </option>
             </optgroup>
             <optgroup label="Mountain">
-              <option value="26.4"> 26" </option>
+              <option value="26.4">  </option>
             </optgroup>
           </select>
         </div>
@@ -85,6 +91,12 @@
     </div>
 
     <div class="col-md-10">
+      <p>
+        This tool is used to help visualize the effect that gearing and cadence has on cycling speed.
+      </p>
+      <p>
+        The candlelight graph shown below has a thick section for the speeds in ones optimal cadence range. The thin section represents speeds that are at the edge of ones cadence zone.
+      </p>
 <!--       <div>
         Front Chainring: {{ front_chainring }}
       </div>
@@ -93,9 +105,10 @@
       </div> -->
 
       <div id="chart_div" style="width: 1024px; height: 500px;" class="center-block"></div>
+        
+      <hr>
 
       <div style="width: 900px" class="center-block">
-        <hr>
         <table id="gear-chart" width="100%">
           <thead>
             <tr>
