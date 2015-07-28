@@ -75,12 +75,18 @@ module Main
     end
 
     def gear_calc
-      return [] unless front_chainring && rear_cassette
+      return [] unless front_chainring && 
+        rear_cassette && 
+        page._wheel_size &&
+        page._tire_size &&
+        page._tire_size &&
+        page._low_cadence &&
+        page._top_cadence
 
-      wheel_size = page._wheel_size ? page._wheel_size.to_i : 622
-      tire_size = page._tire_size ? page._tire_size.to_i : 23
-      low_cadence = page._low_cadence ? page._low_cadence.to_i : 80
-      top_cadence = page._top_cadence ? page._top_cadence.to_i : 100
+      wheel_size = page._wheel_size.to_i# ? page._wheel_size.to_i : 622
+      tire_size = page._tire_size.to_i# ? page._tire_size.to_i : 23
+      low_cadence = page._low_cadence.to_i# ? page._low_cadence.to_i : 80
+      top_cadence = page._top_cadence.to_i# ? page._top_cadence.to_i : 100
       mid_cadence = (low_cadence + top_cadence) / 2
       converstion = 336
 
