@@ -78,7 +78,13 @@ module Main
                 , true);
 
               var options = {
-                legend:'none'
+                legend:'none',
+                hAxis: {
+                  title: 'gear ratio',
+                },
+                vAxis: {
+                  title: 'mph'
+                }
               };
 
               var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
@@ -94,8 +100,14 @@ module Main
               , true);
 
             var options = {
-              legend:'none'
-            };
+                legend:'none',
+                hAxis: {
+                  title: 'gear ratio',
+                },
+                vAxis: {
+                  title: 'mph'
+                }
+              };
 
             var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
 
