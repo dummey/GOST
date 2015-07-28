@@ -8,7 +8,7 @@ Volt.configure do |config|
   # Basic App Info (stuff you should set)
   #######################################
   config.domain = 'gost.com'
-  config.app_name = 'Gost'
+  config.app_name = 'ASOC - A Series of Calculators'
   config.mailer.from = 'Gost <no-reply@gost.com>'
 
   ############
