@@ -2,7 +2,7 @@
   Gear Calc
 
 <:Body>
-  <div class="row">
+  <div class="row center-block" style="max-width:1280px">
     <div class="col-md-2">
       <form e-submit="gear_calc" role="form">
         <input style='width:0; visibility:hidden' type='submit'>
@@ -58,38 +58,39 @@
         </div>
         <div class="form-group">
           <label>Cadence</label>
-          <div class="col-md-12">
-            <div class="form-group row">
-              <div class="col-md-5">
+            <div class="form-group col-md-12">
+              <div class="form-group col-md-6">
                 <input class="form-control" type="text" value="{{ page._low_cadence }}" />
                 <input type="range" name="points" min="0" max="200" value="{{ page._low_cadence }}">
               </div>
-              <div class="col-md-1">
-               -
-              </div>
-              <div class="col-md-5">
+<!--               <div class="form-group col-md-2">
+               <div class="input-group-addon">to</div>
+              </div> -->
+              <div class="form-group col-md-6">
                 <input class="form-control" type="text" value="{{ page._top_cadence }}" />
                 <input type="range" name="points" min="0" max="200" value="{{ page._top_cadence }}">
               </div>
+<!--               <div class="form-group col-md-2">
+                <div class="input-group-addon">rpm</div>
+              </div> -->
             </div>
-          </div>
         </div>
       </form>
     </div>
 
     <div class="col-md-10">
-      <div>
+<!--       <div>
         Front Chainring: {{ front_chainring }}
       </div>
       <div>
         Rear Cassete: {{ rear_cassette }}
-      </div>
+      </div> -->
 
-      <div id="chart_div" style="width: 900px; height: 500px;"></div>
+      <div id="chart_div" style="width: 900px; height: 500px;" class="center-block"></div>
 
-      <div class="computed-stuff">
+      <div style="width: 900px" class="center-block">
         Gear Rations: 
-        <table style="border:1px" class="data_tables">
+        <table class="table table-striped table-bordered table-condensed">
           <thead>
             <tr>
               <td> Front </td>
