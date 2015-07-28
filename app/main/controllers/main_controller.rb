@@ -77,9 +77,11 @@ module Main
     def gear_calc
       return [] unless front_chainring && rear_cassette
 
-      wheel_size = page._wheel_size ? page._wheel_size.to_i : 26.3
-      low_cadence = page._low_cadence ? page._low_cadence.to_i : 70
-      top_cadence = page._top_cadence ? page._top_cadence.to_i : 110
+      wheel_size = page._wheel_size ? page._wheel_size.to_i : 622
+      wheel_size = wheel_size / 25.4 #converting from mm to inch
+      tire_size = page._tire_size ? page._tire_size.to_i : 23
+      low_cadence = page._low_cadence ? page._low_cadence.to_i : 80
+      top_cadence = page._top_cadence ? page._top_cadence.to_i : 100
       mid_cadence = (low_cadence + top_cadence) / 2
       converstion = 336
 
@@ -87,9 +89,9 @@ module Main
       gear_ratios = gear_ratios.to_a.flatten(1)
 
       gear_ratios.map{ |gears|
-        gears << (gears[0].to_i / gears[1].to_i * wheel_size * low_cadence / converstion).round(2)
-        gears << (gears[0].to_i / gears[1].to_i * wheel_size * mid_cadence / converstion).round(2)
-        gears << (gears[0].to_i / gears[1].to_i * wheel_size * top_cadence / converstion).round(2)
+        gears << (gears[0].to_i / gears[1].to_i * (wheel_size + tire_size) * low_cadence / converstion).round(2)
+        gears << (gears[0].to_i / gears[1].to_i * (wheel_size + tire_size) * mid_cadence / converstion).round(2)
+        gears << (gears[0].to_i / gears[1].to_i * (wheel_size + tire_size) * top_cadence / converstion).round(2)
       }
 
 
