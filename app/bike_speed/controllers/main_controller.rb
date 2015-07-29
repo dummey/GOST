@@ -9,16 +9,6 @@ module BikeSpeed
       "#{params._component || 'main'}/#{params._controller || 'main'}/#{params._action || 'index'}"
     end
 
-    def front_chainring
-      return unless page._front_chainring
-      page._front_chainring.split(/\s*,\s*/)
-    end
-
-    def rear_cassette
-      return unless page._rear_cassette
-      page._rear_cassette.split(/\s*,\s*/)
-    end
-
     def bike_speed_ready
       #Do google charts stuff
       `
@@ -57,6 +47,41 @@ module BikeSpeed
       `
     end
 
+    def front_chainring
+      return unless page._front_chainring
+      page._front_chainring.split(/\s*,\s*/)
+    end
+
+    def rear_cassette
+      return unless page._rear_cassette
+      page._rear_cassette.split(/\s*,\s*/)
+    end
+
+
+    def draw_chart(gear_chart)
+      if RUBY_PLATFORM == 'opal'
+        `
+          var data = google.visualization.arrayToDataTable(
+            #{gear_chart}
+            , true);
+
+          var options = {
+              legend:'none',
+              hAxis: {
+                title: 'gear ratio',
+              },
+              vAxis: {
+                title: 'mph'
+              }
+            };
+
+          var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+
+          chart.draw(data, options);
+        `
+      end
+    end
+
     def bike_speed
       return [] unless front_chainring && 
         rear_cassette && 
@@ -91,30 +116,8 @@ module BikeSpeed
         optimal = [mid - delta/4, mid + delta/4]
         [name, e[2], *optimal, e[4]]
       end
-      # p gear_chart.to_s
-
-
-      if RUBY_PLATFORM == 'opal'
-        `
-          var data = google.visualization.arrayToDataTable(
-            #{gear_chart}
-            , true);
-
-          var options = {
-              legend:'none',
-              hAxis: {
-                title: 'gear ratio',
-              },
-              vAxis: {
-                title: 'mph'
-              }
-            };
-
-          var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
-
-          chart.draw(data, options);
-        `
-      end
+      
+      draw_chart(gear_chart)
 
       gear_ratios
     end
