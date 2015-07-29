@@ -12,4 +12,6 @@ component 'bootstrap_jumbotron_theme'
 
 component 'bike_speed'
 
+component 'run_pace'
+
 javascript_file "https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"

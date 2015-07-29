@@ -1,5 +1,70 @@
 <:Title>
-  Component Index
+  Run Pace Calculator
 
 <:Body>
-  <h1>Component Index</h1>
+  <div class="row center-block" style="max-width:1280px">
+    <h1>Run Pace Calculator</h1>
+    <div class="col-md-2">
+      <form e-submit="pace_calc" role="form">
+        <input style='width:0; visibility:hidden' type='submit'>
+        <div class="form-group">
+          <label>
+            <a href="#" data-toggle="tooltip" title="the number of teeth on the front chainring">Disance</a>
+          </label>
+          <select class="form-control" value="{{ page._distance }}">
+            <option value="" disabled selected>Select:</option>
+            <option value="1500">1500m</option>
+            <option value="mile">Mile</option>
+            <option value="3k">3k</option>
+            <option value="2mile">2 Mile</option>
+            <option value="5k">5k</option>
+            <option value="8k">8k</option>
+            <option value="5mile">5 Mile</option>
+            <option value="10k">10k</option>
+            <option value="15k">15k</option>
+            <option value="10mile">10 Mile</option>
+            <option value="20k">20k</option>
+            <option value="12_marathon">1/2 Marathon</option>
+            <option value="25k">25k</option>
+            <option value="30k">30k</option>
+            <option value="marathon">Marathon</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>
+            <a href="#" data-toggle="tooltip" title="the number of teeth on the front chainring">Time</a>
+          </label>
+          <input type="text" class="form-control" value="{{ page._run_time }}">
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-10">
+      <p>
+        Placeholder text
+      </p>
+      <p>
+        Placeholder text
+      </p>
+      <p>
+        VDOT: {{ vdot }}
+      </p>
+      <p>
+        TIME: {{ page._run_time}}
+      </p>
+
+      {{ performance }}
+      {{ col_names.each do |k| }}
+        {{ k }}
+      {{ end }}
+
+<!--       <div>
+        Front Chainring: {{ front_chainring }}
+      </div>
+      <div>
+        Rear Cassete: {{ rear_cassette }}
+      </div> -->
+
+
+    </div>
+  </div>
