@@ -9,7 +9,7 @@ module BikeSpeed
       "#{params._component || 'main'}/#{params._controller || 'main'}/#{params._action || 'index'}"
     end
 
-    def bike_speed_ready
+    def index_ready
       #Do google charts stuff
       `
         google.setOnLoadCallback(drawChart);

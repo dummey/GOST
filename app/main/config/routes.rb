@@ -1,7 +1,10 @@
 # See https://github.com/voltrb/volt#routes for more info on routes
 client '/about', action: 'about'
 client '/todos', action: 'todos'
-client '/bike_speed', component: 'bike_speed', action: 'bike_speed'
+
+client '/bike_speed', component: 'bike_speed'
+
+client '/run_pace', component: 'run_pace'
 
 # Routes for login and signup, provided by user_templates component gem
 client '/signup', component: 'user_templates', controller: 'signup'
