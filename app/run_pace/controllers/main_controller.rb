@@ -86,6 +86,28 @@ module RunPace
       time.map{|t| "%02d" % t}.join(':')
     end
 
+    def index_ready
+      #Do google charts stuff
+      `
+        google.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable(
+              []
+              , true);
+
+            var options = {
+              legend:'none',
+              curveType: 'function',
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('pace_chart'));
+
+            chart.draw(data, options);
+          }
+
+      `
+    end
+
     def vdot
       return unless page._distance && page._run_time
 
@@ -115,7 +137,7 @@ module RunPace
       return {} unless vdot
 
       row = VDOT_Table[vdot]
-      p row
+
       Hash[
         row.map {|d, t|
           [col_names[d], unconvert_time(t)]
@@ -127,11 +149,36 @@ module RunPace
       return {} unless vdot
 
       row = VDOT_Table[vdot]
-      Hash[
+
+      paces_chart_data = row.map {|d, t| [col_names[d], t, 1] }
+      paces_chart_data = [['Distance', 'Pace', 'why']] + paces_chart_data
+      performance_pace_chart(paces_chart_data)
+
+      paces = Hash[
         row.map {|d, t|
           [col_names[d], unconvert_time(t/col_distances[d], 2)]
         }
       ]
+      paces
+    end
+
+    def performance_pace_chart(pace_data)
+      p pace_data
+      if RUBY_PLATFORM == 'opal'
+        `
+          var data = google.visualization.arrayToDataTable(#{pace_data});
+
+          var options = {
+            title: 'Company Performance',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('pace_chart'));
+
+          chart.draw(data, options);
+        `
+      end
     end
 
 
