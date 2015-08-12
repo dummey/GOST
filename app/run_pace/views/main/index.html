@@ -18,15 +18,9 @@
             <option value="3k">3k</option>
             <option value="2mile">2 Mile</option>
             <option value="5k">5k</option>
-            <option value="8k">8k</option>
-            <option value="5mile">5 Mile</option>
             <option value="10k">10k</option>
             <option value="15k">15k</option>
-            <option value="10mile">10 Mile</option>
-            <option value="20k">20k</option>
             <option value="12_marathon">1/2 Marathon</option>
-            <option value="25k">25k</option>
-            <option value="30k">30k</option>
             <option value="marathon">Marathon</option>
           </select>
         </div>
@@ -41,30 +35,60 @@
 
     <div class="col-md-10">
       <p>
-        Placeholder text
+        This calculator will show projected finish times given a race result. It will also present paces for training zones.
       </p>
       <p>
-        Placeholder text
+        * This is based on <a href="http://www.amazon.com/Daniels-Running-Formula-3rd-Edition-Jack/dp/1450431836">Daniels' Running Formula-3rd Edition</a>
       </p>
-      <p>
+
+      <h4>
         VDOT: {{ vdot }}
-      </p>
-      <p>
-        TIME: {{ page._run_time}}
-      </p>
+      </h4>
 
-      {{ performance }}
-      {{ col_names.each do |k| }}
-        {{ k }}
-      {{ end }}
+      <hr>
 
-<!--       <div>
-        Front Chainring: {{ front_chainring }}
+      <div class="{{ if performance_finish_time.empty? }} hidden {{ end }}">
+        <h3> Projected Race Times </h3>
+        <table class="table table-striped table-bordered table-condensed">
+          <thead>
+            <tr>
+              {{ performance_finish_time.keys.each do |v| }}
+                <td>{{ v }}</td>
+              {{ end }}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {{ performance_finish_time.values.each do |v| }}
+                <td>{{ v }}</td>
+              {{ end }}
+            </tr>
+            <tr>
+              {{ performance_pace.values.each do |v| }}
+                <td>{{ v }}/mile</td>
+              {{ end }}
+            </tr>
+          </tbody>
+        </table>
+
+<!--         <div id="pace_chart" style="width: 1024px; height: 500;" class="center-block {{ if performance_finish_time.empty? }} hidden {{ end }}"></div> -->
+
+        <hr>
+
+        <h3> Training Zones </h3>
+        {{ training_pace }}
+        <table class="table table-striped table-bordered table-condensed">
+          <thead>
+            <tr>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div>
-        Rear Cassete: {{ rear_cassette }}
-      </div> -->
-
-
     </div>
   </div>
